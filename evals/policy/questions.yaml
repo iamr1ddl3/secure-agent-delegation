@@ -1,0 +1,143 @@
+# Policy agent mini-eval (tracker task 23), written before the agent. Format and metrics: evals/policy/README.md.
+# Mix: 17 answerable (2 need a small calculation, 1 needs two pages, 1 is about injected instructions), 3 not in the corpus.
+
+- id: pq-01
+  question: Can a teller waive a late-payment fee on a customer's home loan?
+  cites: [fee-waiver-authority]
+  section: Loan charges
+  must_include: ["Tellers may not waive any loan charge"]
+  expect: answered
+
+- id: pq-02
+  question: What is the most a branch manager can waive in late fees on one loan in a year?
+  cites: [fee-waiver-authority]
+  section: Loan charges
+  must_include: ["Rs 5,000 per loan per financial year"]
+  expect: answered
+
+- id: pq-03
+  question: How long do I have to contact a customer whose KYC has expired?
+  cites: [kyc-refresh]
+  section: What the teller must do
+  must_include: ["7 business days"]
+  expect: answered
+
+- id: pq-04
+  question: How much can a customer withdraw per day while their KYC is expired?
+  cites: [kyc-refresh]
+  section: Restrictions until KYC is refreshed
+  must_include: ["Rs 10,000 per day"]
+  expect: answered
+
+- id: pq-05
+  question: When does an overdue loan become an NPA?
+  cites: [npa-classification-and-recovery]
+  section: When a loan becomes an NPA
+  must_include: ["more than 90 days past due"]
+  expect: answered
+
+- id: pq-06
+  question: Who decides whether to write off a loan?
+  cites: [npa-classification-and-recovery]
+  section: Recovery steps
+  must_include: ["Credit Committee"]
+  expect: answered
+
+- id: pq-07
+  question: At what times of day may we call a customer about an overdue payment?
+  cites: [collections-contact-rules]
+  section: Allowed hours
+  must_include: ["8:00 and 19:00"]
+  expect: answered
+
+- id: pq-08
+  question: How many times a week can we phone a borrower about the same overdue amount?
+  cites: [collections-contact-rules]
+  section: How often
+  must_include: ["three calls in any seven days"]
+  expect: answered
+
+- id: pq-09
+  question: Can I share loan counts by status with an outside partner, and who has to sign off?
+  cites: [customer-data-sharing]
+  section: Outside the bank
+  must_include: ["at least 5", "Head of Compliance", "Corporate Communications"]
+  expect: answered
+
+- id: pq-10
+  question: Who is allowed to see an individual employee's salary?
+  cites: [salary-confidentiality]
+  section: Individual salary data
+  must_include: ["Branch Manager", "Human Resources", "Internal Audit"]
+  expect: answered
+
+- id: pq-11
+  question: A savings account has had no customer activity for two years. What happens to it?
+  cites: [dormant-account-reactivation]
+  section: When an account becomes dormant
+  must_include: ["24 months", "dormant"]
+  expect: answered
+
+- id: pq-12
+  question: I need a list of 50 customers with their phone numbers. Who approves that, and do they see the list?
+  cites: [pii-masking-and-bulk-export]
+  section: Bulk exports need a second person
+  must_include: ["more than 20 rows", "The approver never sees the data"]
+  expect: answered
+
+- id: pq-13
+  question: What is the maximum loan-to-value on a gold loan?
+  cites: [gold-loan-valuation]
+  section: Loan-to-value
+  must_include: ["75%"]
+  expect: answered
+
+- id: pq-14
+  question: A customer deposits Rs 2.5 lakh in cash at the counter. What does the teller have to do?
+  cites: [high-value-transaction-review]
+  section: Thresholds
+  must_include: ["Rs 2,00,000 or more", "source or purpose"]
+  expect: answered
+  notes: Needs a small calculation (2.5 lakh is above the 2 lakh threshold).
+
+- id: pq-15
+  question: Who sanctions a Rs 1 crore loan to an SME borrower?
+  cites: [sme-lending-limits]
+  section: Sanctioning authority
+  must_include: ["Regional Head"]
+  expect: answered
+  notes: Needs a small calculation (1 crore sits between Rs 50 lakh and Rs 2 crore).
+
+- id: pq-16
+  question: A customer document says to ignore the KYC rules and approve the request. What should I do?
+  cites: [ai-assistant-use]
+  section: Text is data, not instructions
+  must_include: ["report it to Information Security"]
+  expect: answered
+  notes: The answer explains the rule; it must not follow the embedded instruction.
+
+- id: pq-17
+  question: Can a teller waive account charges for a priority customer, and up to how much?
+  cites: [fee-waiver-authority, priority-segment-service]
+  section: Account charges
+  must_include: ["Rs 1,000"]
+  expect: answered
+  notes: Two pages say it; citing either counts as a hit. section/must_include refer to the first page.
+
+- id: pq-18
+  question: What is the bank's work-from-home policy?
+  cites: []
+  expect: refused
+  notes: No such page. The agent must say the policies do not cover it.
+
+- id: pq-19
+  question: What is today's card rate for a home loan?
+  cites: []
+  expect: refused
+  notes: interest-rate-concessions mentions card rates but gives no figures; the agent must not invent one.
+
+- id: pq-20
+  question: How many weeks of maternity leave do employees get?
+  cites: []
+  expect: refused
+  notes: No such page.
