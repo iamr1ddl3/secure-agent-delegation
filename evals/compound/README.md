@@ -59,13 +59,15 @@ A `draft` part is `awaiting_approval`: only the person who asked can approve it,
 | Task `expect` | When |
 | --- | --- |
 | `refused` | every non-writer part is `refused` |
+| `failed` | any part is `error` (something broke; never expected by an eval item) |
 | `escalated` | any part is `needs_review` (a human must decide; nothing is guessed) |
 | `needs_clarification` | any part is `needs_clarification` |
 | `partial` | some parts `refused`, the rest `answered` (the summary says what could not be done) |
 | `awaiting_approval` | a draft is waiting for approval and every other part is `answered` |
 | `completed` | every part `answered` |
 
-Checked in that order. A refusal is never "worked around": the writer must say the part could not be answered and
+Checked in that order. The rule lives in `secure_agent_delegation.handoffs.derive_status` (used by the eval and by
+the service's `TaskResult`). A refusal is never "worked around": the writer must say the part could not be answered and
 must not fill it in from anywhere else.
 
 ### Scoring (built in task 21)
