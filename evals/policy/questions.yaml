@@ -1,5 +1,6 @@
 # Policy agent mini-eval (tracker task 23), written before the agent. Format and metrics: evals/policy/README.md.
 # Mix: 17 answerable (2 need a small calculation, 1 needs two pages, 1 is about injected instructions), 3 not in the corpus.
+# All 20 human-reviewed by Ravi on 2026-11-19.
 
 - id: pq-01
   question: Can a teller waive a late-payment fee on a customer's home loan?
