@@ -4,7 +4,7 @@
 
 A supervisor agent that splits a bank staff member's compound request across specialist agents, one of which is the unchanged [Secure SQL Agent](https://github.com/iamr1ddl3/secure-sql-agent) (Project 1), called over MCP. It proves three things: the user's access rights travel with every delegated call, text passed between agents cannot hijack the next agent, and anything sensitive stops for a human.
 
-> **Status: Week 0 (2026-11-19).** Decisions made, repo skeleton, pinned P1 contract with checksum test, P1 v1.0.0 running next to P2 over MCP HTTP. No agent code yet. Results below fill in from CI reports only.
+> **Status: Week 0 (2026-11-19).** Decisions made, repo skeleton, pinned P1 contract with checksum test, P1 v1.0.1 running next to P2 over MCP HTTP. No agent code yet. Results below fill in from CI reports only.
 
 ## Results
 
@@ -32,7 +32,7 @@ A supervisor agent that splits a bank staff member's compound request across spe
 ```bash
 cp .env.example .env                          # P2's own settings: no bank credentials
 cp ../secure-sql-agent/.env p1.env            # P1's settings, read only by the p1-mcp container
-docker compose up -d --build                  # P1 v1.0.0 (MCP on localhost:8001) + P2's local Postgres
+docker compose up -d --build                  # P1 v1.0.1 (MCP on localhost:8001) + P2's local Postgres
 pip install -e ".[dev]" && ruff check . && pytest -q
 ```
 

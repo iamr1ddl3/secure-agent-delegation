@@ -1,4 +1,4 @@
-"""The vendored P1 contract must be exactly v1.0.0: any change to it fails the build loudly."""
+"""The vendored P1 contract must be exactly the pinned release: any change to it fails the build loudly."""
 import hashlib
 import json
 from pathlib import Path
@@ -8,7 +8,7 @@ from jsonschema import Draft202012Validator
 
 P1 = Path(__file__).resolve().parents[1] / "interface/p1"
 SCHEMA_FILE = P1 / "query_bank_data.v1.schema.json"
-PINNED_SHA256 = "8f62c804dc72a6ba213d99806b0f5c89f16fee54345e6fc238cb0ed4a0efc5e3"  # P1 tag v1.0.0
+PINNED_SHA256 = "8f62c804dc72a6ba213d99806b0f5c89f16fee54345e6fc238cb0ed4a0efc5e3"  # P1 v1.0.0 and v1.0.1 (unchanged)
 SCHEMA = json.loads(SCHEMA_FILE.read_text())
 EXAMPLES = sorted((P1 / "examples").glob("*.json"))
 
