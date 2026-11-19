@@ -1,0 +1,182 @@
+{
+ "ct-01/b": {
+  "question": "Who may waive a late fee on an overdue loan, up to what amount, and what must be recorded.",
+  "result": {
+   "subtask_id": "b",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "The Branch Manager may waive late-payment and bounce charges up to Rs 5,000 per loan per financial year. Above Rs 5,000 per loan per financial year, or for any loan classified as NPA, only the Regional Head may waive, on a written note from the Branch Manager. The bank's policies do not specify what must be recorded for a fee waiver.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "fee-waiver-authority",
+     "section": "Loan charges"
+    }
+   ]
+  }
+ },
+ "ct-02/b": {
+  "question": "The follow-up steps by days past due (reminder, call, visit) before the 90-day NPA mark.",
+  "result": {
+   "subtask_id": "b",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "Before the NPA mark, overdue loans (1 to 90 days past due) follow these steps: 1 to 7 days, an automated SMS and email reminder by the System; 8 to 30 days, a phone call to the customer by branch staff named by the Branch Manager, with the outcome noted on the loan file; 31 to 60 days, a written reminder letter and a branch visit if the customer cannot be reached by phone, by the Branch Manager or delegate; 61 to 90 days, a Branch Manager review offering a restructuring assessment if there is genuine hardship, otherwise a final notice that the loan will be classified NPA on day 91. Every contact must follow collections-contact-rules.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "overdue-loan-handling",
+     "section": "Follow-up steps by days past due"
+    },
+    {
+     "page": "overdue-loan-handling",
+     "section": "Definitions"
+    }
+   ]
+  }
+ },
+ "ct-03/b": {
+  "question": "What a teller must do when a customer's KYC has expired, including what is restricted until it is refreshed.",
+  "result": {
+   "subtask_id": "b",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "When a customer's KYC has expired, the teller must contact the customer within **7 business days** by phone or SMS (and by letter if there is no answer), ask for a current identity document and proof of address or a self-declaration if nothing has changed, verify the documents in person or through video KYC and update the record the same day, and note each attempt on the customer record. Until KYC is refreshed, no new account, card, loan or other product may be opened, withdrawals and outgoing transfers are limited to **Rs 10,000 per day** (credits are allowed), and address or phone-number changes are not accepted.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "kyc-refresh",
+     "section": "What the teller must do"
+    },
+    {
+     "page": "kyc-refresh",
+     "section": "Restrictions until KYC is refreshed"
+    }
+   ]
+  }
+ },
+ "ct-04/b": {
+  "question": "Who may waive a late fee on an overdue loan; a teller is not among them.",
+  "result": {
+   "subtask_id": "b",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "The Branch Manager may waive a late-payment fee up to Rs 5,000 per loan per financial year. Above Rs 5,000 per loan per financial year, or for any loan classified as NPA, only the Regional Head may waive it, on a written note from the Branch Manager.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "fee-waiver-authority",
+     "section": "Loan charges"
+    }
+   ]
+  }
+ },
+ "ct-05/b": {
+  "question": "A loan becomes NPA at more than 90 days past due; the recovery steps and who owns them.",
+  "result": {
+   "subtask_id": "b",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "A loan is classified as an NPA on the day an instalment is more than 90 days past due, and classification is automatic. Recovery steps are: within 7 days, the recovery notice goes to the borrower and any guarantor; within 30 days, the Regional Recovery Unit assesses whether restructuring or settlement is realistic; secured loans may face recovery against the security after 60 days without an agreed plan, after legal review; unsecured loans may be referred to the approved recovery agency, which must follow collections-contact-rules; and only the Credit Committee decides write-off.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "npa-classification-and-recovery",
+     "section": "When a loan becomes an NPA"
+    },
+    {
+     "page": "npa-classification-and-recovery",
+     "section": "Recovery steps"
+    }
+   ]
+  }
+ },
+ "ct-06/b": {
+  "question": "Who may receive salary data (individual and aggregate) and in what form.",
+  "result": {
+   "subtask_id": "b",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "Individual salary may be seen only by the employee themselves, their Branch Manager (for staff of their own branch only), Human Resources, and Internal Audit (for audit work). Aggregate salary figures (averages or totals by department, branch or grade) may be shared with the bank's leadership and the Board's remuneration committee, provided each group contains at least 5 employees. Salary data is sent only as a password-protected file through bank email or the HR system, never by personal email, messaging apps, printed copies left on desks, or a meeting slide shown to a mixed audience.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "salary-confidentiality",
+     "section": "Aggregate salary data"
+    },
+    {
+     "page": "salary-confidentiality",
+     "section": "Individual salary data"
+    },
+    {
+     "page": "salary-confidentiality",
+     "section": "How it is sent"
+    }
+   ]
+  }
+ },
+ "ct-07/b": {
+  "question": "Whether aggregate figures may be shared outside the bank, and who must approve it first.",
+  "result": {
+   "subtask_id": "b",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "Aggregate figures may be shared outside the bank (for example with a partner, vendor or in a conference slide) only if every group has at least 5 customers, accounts or loans, and the Head of Compliance and Corporate Communications have both approved it in writing first. Interns, trainees and contractors may prepare aggregate material but may not approve or send it outside.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "customer-data-sharing",
+     "section": "Outside the bank"
+    }
+   ]
+  }
+ },
+ "ct-08/b": {
+  "question": "The allowed channels, hours and tone when contacting a customer about an overdue payment.",
+  "result": {
+   "subtask_id": "b",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "Allowed channels are phone, SMS, email from the branch's official address, letter, and a branch visit by appointment; personal messaging apps, social media and personal email are never used. Contact is allowed between 8:00 and 19:00 in the customer's local time, Monday to Saturday, with no contact on Sundays or national public holidays unless replying to a customer who asked to be called. Communications must be polite and factual, with no threats, shaming, or legal action language unless a formal notice has been approved.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "collections-contact-rules",
+     "section": "Allowed channels"
+    },
+    {
+     "page": "collections-contact-rules",
+     "section": "Allowed hours"
+    },
+    {
+     "page": "collections-contact-rules",
+     "section": "Tone and content"
+    }
+   ]
+  }
+ },
+ "ct-09/c": {
+  "question": "Whether a teller may waive fees for priority customers, and the limit or approver if not.",
+  "result": {
+   "subtask_id": "c",
+   "specialist": "policy",
+   "status": "answered",
+   "answer": "Yes, a teller may waive account charges up to Rs 1,000 per customer per calendar quarter for a priority-segment customer (Rs 500 for others). Requests over the teller's limit go to the Branch Manager (up to Rs 10,000), and amounts above Rs 10,000 go to the Regional Head, while tellers may not waive any loan charge for any segment.",
+   "p1_response": null,
+   "citations": [
+    {
+     "page": "priority-segment-service",
+     "section": "Fees"
+    },
+    {
+     "page": "fee-waiver-authority",
+     "section": "Account charges"
+    },
+    {
+     "page": "fee-waiver-authority",
+     "section": "Loan charges"
+    }
+   ]
+  }
+ }
+}

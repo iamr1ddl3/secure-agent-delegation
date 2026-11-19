@@ -16,7 +16,7 @@ import psycopg
 import yaml
 
 from secure_agent_delegation.llm import CONFIG, LLM
-from secure_agent_delegation.policy_agent import PolicyAgentError, answer
+from secure_agent_delegation.policy_agent import REPLY_SCHEMA, PolicyAgentError, answer
 from secure_agent_delegation.policy_eval import score, summarise
 from secure_agent_delegation.policy_store import MODEL, embed_query_with_model, search
 
@@ -34,7 +34,7 @@ def env_file() -> None:
 def main(model_id: str) -> None:
     env_file()
     items = yaml.safe_load((ROOT / "evals/policy/questions.yaml").read_text())
-    llm, rows, scores = LLM(model_id), [], []
+    llm, rows, scores = LLM(model_id, schema=REPLY_SCHEMA), [], []
     url = os.environ.get("STATE_DATABASE_URL", "postgresql://p2:p2-local@localhost:5433/p2")
     with psycopg.connect(url) as conn:
         for item in items:

@@ -17,10 +17,11 @@ class LLMError(Exception):
 class LLM:
     """`llm(system, user) -> text`. Keeps running totals of cost and per-call latency for the eval reports."""
 
-    def __init__(self, model_id: str, api_key: str | None = None, *, max_tokens: int | None = None):
+    def __init__(self, model_id: str, api_key: str | None = None, *, max_tokens: int | None = None,
+                 schema: dict | None = None):
         from openai import OpenAI
 
-        self.model_id = model_id
+        self.model_id, self.schema = model_id, schema  # schema: strict structured output, enforced by the API
         self.max_tokens = max_tokens or CONFIG["defaults"]["max_tokens"]
         self.cost_usd, self.latencies_ms = 0.0, []
         self._client = OpenAI(api_key=api_key or os.environ["OPENROUTER_API_KEY"],
@@ -32,7 +33,10 @@ class LLM:
             r = self._client.chat.completions.create(
                 model=self.model_id, temperature=CONFIG["defaults"]["temperature"], max_tokens=self.max_tokens,
                 messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
-                extra_body={"usage": {"include": True}})  # OpenRouter returns the dollar cost
+                extra_body={"usage": {"include": True}},  # OpenRouter returns the dollar cost
+                **({"response_format": {"type": "json_schema",
+                                        "json_schema": {"name": "reply", "strict": True, "schema": self.schema}}}
+                   if self.schema else {}))
         except Exception as e:
             raise LLMError(f"{type(e).__name__}: {str(e)[:200]}") from e
         self.latencies_ms.append((time.perf_counter() - t0) * 1000)

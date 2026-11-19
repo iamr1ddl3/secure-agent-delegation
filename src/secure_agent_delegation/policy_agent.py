@@ -45,6 +45,9 @@ class _Reply(BaseModel):
     citations: list[Citation]
 
 
+REPLY_SCHEMA = _Reply.model_json_schema()  # pass to LLM(schema=...) so the API enforces the shape
+
+
 def build_prompt(question: str, hits: list[Hit]) -> tuple[str, str]:
     excerpts = "\n\n".join(
         f'<excerpt page="{h.page}" section="{h.section}">\n{h.title} — {h.section}\n'
