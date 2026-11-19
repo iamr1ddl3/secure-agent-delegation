@@ -20,7 +20,7 @@ A supervisor agent that splits a bank staff member's compound request across spe
 
 ## Status
 
-- [ ] Week 0: decisions, repo, pinned P1 contract, CI skeleton
+- [x] Week 0: decisions, repo, pinned P1 contract, CI skeleton
 - [ ] Stage 1: supervisor, SQL + policy RAG + writer, typed hand-offs, run limits (gate: 10 tasks end to end; loop stopped)
 - [ ] Stage 2: identity propagation, confused-deputy suite (gate: 0 cross-agent leaks)
 - [ ] Stage 3: cross-agent injection, refusal pass-through, human approval (gate: attack success by type, before/after)
