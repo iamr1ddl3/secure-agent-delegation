@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+# P1's own env file for the p1-mcp compose service (bank credentials live there, never in P2 code)
+p1.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+reports/
+.DS_Store
+# vault / assistant metadata stays private (portfolio template)
+CLAUDE.md
+.claude/
+wiki/
+raw/

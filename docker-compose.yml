@@ -1,0 +1,22 @@
+# P1 runs unchanged, pinned at its v1.0.0 tag, as a separate service. Its bank credentials stay in p1.env
+# (a copy of P1's .env, gitignored), which only the p1-mcp container reads. P2 code never sees them.
+services:
+  p1-mcp:
+    build: https://github.com/iamr1ddl3/secure-sql-agent.git#v1.0.0
+    env_file: p1.env
+    # P1 v1.0.0's `--http` binds 127.0.0.1 inside the container (unreachable from outside), so start the same
+    # server object bound to all interfaces; the host port is published on loopback only. No P1 code change.
+    command: ["python", "-c", "from secure_sql_agent.mcp_server import mcp; mcp.run(transport='streamable-http', host='0.0.0.0', port=8000)"]
+    ports: ["127.0.0.1:8001:8000"]
+
+  state-db:  # P2's own Postgres: policy store + checkpoints (decision D4). No bank data.
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: p2
+      POSTGRES_PASSWORD: p2-local
+      POSTGRES_DB: p2
+    ports: ["127.0.0.1:5433:5432"]
+    volumes: ["state-db:/var/lib/postgresql/data"]
+
+volumes:
+  state-db:
