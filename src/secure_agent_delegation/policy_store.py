@@ -9,6 +9,7 @@ from __future__ import annotations
 import re
 from collections.abc import Callable
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 
 import yaml
@@ -51,10 +52,15 @@ def chunk_corpus(folder: Path) -> list[Chunk]:
     return [c for p in sorted(folder.glob("*.md")) if p.name != "README.md" for c in chunk_page(p.read_text())]
 
 
-def embed_with_model(texts: list[str]) -> list[list[float]]:
+@lru_cache(maxsize=1)
+def _model():
     from fastembed import TextEmbedding  # imported here so tests and CI never load the model
 
-    return [v.tolist() for v in TextEmbedding(MODEL).passage_embed(texts)]
+    return TextEmbedding(MODEL)
+
+
+def embed_with_model(texts: list[str]) -> list[list[float]]:
+    return [v.tolist() for v in _model().passage_embed(texts)]
 
 
 _DDL = """
@@ -89,3 +95,39 @@ def load(conn: Connection, chunks: list[Chunk], embed: Embed, *, model: str = MO
                 [(c.page, c.section, c.title, c.version, c.body, str(v), model) for c, v in zip(chunks, vectors,
                                                                                              strict=True)])
     return len(chunks)
+
+
+@dataclass(frozen=True)
+class Hit:
+    page: str
+    section: str
+    title: str
+    body: str
+    score: float
+
+
+RRF_K = 60  # standard reciprocal-rank-fusion constant
+_SEARCH = """
+WITH q AS (SELECT %(v)s::vector AS v,
+                  replace(plainto_tsquery('english', %(q)s)::text, '&', '|')::tsquery AS t),  -- any word, not all
+dense AS (SELECT page, section, row_number() OVER (ORDER BY embedding <=> q.v) AS r
+          FROM {schema}.chunks, q ORDER BY embedding <=> q.v LIMIT %(n)s),
+kw AS (SELECT page, section, row_number() OVER (ORDER BY ts_rank_cd(tsv, q.t) DESC) AS r
+       FROM {schema}.chunks, q WHERE tsv @@ q.t ORDER BY ts_rank_cd(tsv, q.t) DESC LIMIT %(n)s)
+SELECT c.page, c.section, c.title, c.body,
+       coalesce(1.0 / (%(rrf)s + d.r), 0) + coalesce(1.0 / (%(rrf)s + k.r), 0) AS score
+FROM dense d FULL JOIN kw k USING (page, section) JOIN {schema}.chunks c USING (page, section)
+ORDER BY score DESC, c.page, c.section LIMIT %(k)s
+"""
+
+
+def search(conn: Connection, question: str, query_vector: list[float], *, k: int = 5, pool: int = 20,
+           schema: str = "policy") -> list[Hit]:
+    """Hybrid search: dense (pgvector cosine) and keyword (tsvector) ranks fused with RRF, in one SQL round trip."""
+    rows = conn.execute(sql.SQL(_SEARCH).format(schema=sql.Identifier(schema)),
+                        {"v": str(list(query_vector)), "q": question, "n": pool, "k": k, "rrf": RRF_K}).fetchall()
+    return [Hit(*r[:4], float(r[4])) for r in rows]
+
+
+def embed_query_with_model(text: str) -> list[float]:
+    return next(iter(_model().query_embed([text]))).tolist()

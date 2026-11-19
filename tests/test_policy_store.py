@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from secure_agent_delegation.policy_store import DIM, MAX_CHARS, Chunk, chunk_corpus, chunk_page, load
+from secure_agent_delegation.policy_store import DIM, MAX_CHARS, Chunk, chunk_corpus, chunk_page, load, search
 
 ROOT = Path(__file__).resolve().parents[1]
 CHUNKS = chunk_corpus(ROOT / "policies")
@@ -115,3 +115,20 @@ def test_partial_load_rolls_back(conn):
     with pytest.raises(RuntimeError):
         load(conn, [*CHUNKS, Chunk("x", "y", "X", "1", "z")], broken, model="fake", schema="policy_test")
     assert conn.execute("SELECT count(*) FROM policy_test.chunks").fetchone()[0] == len(CHUNKS)
+
+
+@needs_db
+def test_hybrid_search_fuses_both_ranks_in_one_query(conn):
+    load(conn, CHUNKS, fake_embed, model="fake", schema="policy_test")
+    (target,) = [c for c in CHUNKS if (c.page, c.section) == ("fee-waiver-authority", "Loan charges")]
+    q = "Can a teller waive a late-payment loan charge?"
+    hits = search(conn, q, fake_embed([target.text])[0], k=5, schema="policy_test")  # dense rank 1 = target
+    assert len(hits) == 5 and [h.score for h in hits] == sorted((h.score for h in hits), reverse=True)
+    assert (hits[0].page, hits[0].section) == ("fee-waiver-authority", "Loan charges")
+    assert hits[0].score > 1 / 61  # first by dense AND ranked by keyword: both ranks were fused
+
+
+@needs_db
+def test_search_with_only_stopwords_still_returns_dense_hits(conn):
+    load(conn, CHUNKS, fake_embed, model="fake", schema="policy_test")
+    assert len(search(conn, "what is the", fake_embed(["x"])[0], k=3, schema="policy_test")) == 3
