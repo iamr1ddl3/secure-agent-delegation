@@ -7,11 +7,19 @@ on:
 jobs:
   lint-and-contract:
     runs-on: ubuntu-latest
+    services:
+      state-db:  # P2's own Postgres + pgvector, as in docker-compose.yml. No bank data.
+        image: pgvector/pgvector:pg16
+        env: { POSTGRES_USER: p2, POSTGRES_PASSWORD: p2-local, POSTGRES_DB: p2 }
+        ports: ["5433:5432"]
+        options: --health-cmd "pg_isready -U p2" --health-interval 2s --health-retries 15
+    env:
+      STATE_DATABASE_URL: postgresql://p2:p2-local@localhost:5433/p2
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11", cache: pip }
       - run: pip install -e ".[dev]"
       - run: ruff check .
-      - name: Contract tests (vendored P1 v1.0.0 schema)
-        run: pytest -q
+      - name: Tests (contract, eval formats, hand-offs, P1 client, policy store)
+        run: pytest -q -rs
