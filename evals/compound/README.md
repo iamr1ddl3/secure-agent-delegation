@@ -77,5 +77,5 @@ per-part correctness, cost per task, p95 time per task, escalation rate.
 
 ### Policy page ids
 
-Policy parts cite pages that the policy corpus (task 22) must contain. Ids used so far are listed in
-`tests/test_compound_format.py` (`POLICY_PAGES`); the corpus task turns that list into real files.
+Policy parts cite pages of the synthetic policy corpus in `policies/` by file name (without `.md`); the format
+test fails if a cited page does not exist.

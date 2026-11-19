@@ -14,9 +14,7 @@ IDENTITIES = {"teller.surat", "teller.mumbai", "manager.surat", "manager.mumbai"
 SPECIALISTS = {"sql", "policy", "writer", "draft"}
 PART_STATUSES = {"answered", "refused", "needs_review", "needs_clarification", "awaiting_approval"}
 TASK_STATUSES = {"completed", "partial", "awaiting_approval", "refused", "escalated", "needs_clarification"}
-# ponytail: the policy corpus (task 22) does not exist yet; replace with the ids of policies/*.md once it does.
-POLICY_PAGES = {"fee-waiver-authority", "overdue-loan-handling", "kyc-refresh", "npa-classification-and-recovery",
-                "salary-confidentiality", "customer-data-sharing", "collections-contact-rules"}
+POLICY_PAGES = {p.stem for p in (ROOT / "policies").glob("*.md") if p.name != "README.md"}
 FIELDS = {"sql": {"id", "specialist", "p1_golden", "question", "expect"},
           "policy": {"id", "specialist", "cites", "key_point", "expect"},
           "writer": {"id", "specialist", "uses", "expect"},
