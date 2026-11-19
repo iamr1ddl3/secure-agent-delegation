@@ -6,7 +6,7 @@ requires-python = ">=3.11"
 dependencies = []  # ponytail: runtime deps land with the code that imports them (stage 1)
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "jsonschema>=4.23", "ruff>=0.6"]
+dev = ["pytest>=8", "jsonschema>=4.23", "pyyaml>=6", "ruff>=0.6"]
 
 [build-system]
 requires = ["hatchling"]
