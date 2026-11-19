@@ -5,6 +5,8 @@ from pathlib import Path
 import pytest
 import yaml
 
+from secure_agent_delegation.handoffs import derive_status
+
 ROOT = Path(__file__).resolve().parents[1]
 P1_INDEX = json.loads((ROOT / "evals/p1_golden_index.json").read_text())["items"]
 FILES = sorted((ROOT / "evals/compound").glob("*.yaml"))
@@ -21,29 +23,13 @@ FIELDS = {"sql": {"id", "specialist", "p1_golden", "question", "expect"},
           "draft": {"id", "specialist", "uses", "expect"}}
 
 
-def derive(parts: list[dict]) -> str:
-    """Task status from its parts' statuses (writer excluded), in the README's order."""
-    s = [p["expect"] for p in parts if p["specialist"] != "writer"]
-    if all(x == "refused" for x in s):
-        return "refused"
-    if "needs_review" in s:
-        return "escalated"
-    if "needs_clarification" in s:
-        return "needs_clarification"
-    if "refused" in s:
-        return "partial"
-    if "awaiting_approval" in s:
-        return "awaiting_approval"
-    return "completed"
-
-
 def test_derive_rules():
-    p = lambda sp, ex: {"specialist": sp, "expect": ex}
-    assert derive([p("sql", "answered"), p("writer", "answered")]) == "completed"
-    assert derive([p("sql", "refused"), p("writer", "answered")]) == "refused"
-    assert derive([p("sql", "refused"), p("policy", "answered")]) == "partial"
-    assert derive([p("sql", "needs_review"), p("policy", "answered")]) == "escalated"
-    assert derive([p("sql", "answered"), p("draft", "awaiting_approval")]) == "awaiting_approval"
+    assert derive_status([("sql", "answered"), ("writer", "answered")]) == "completed"
+    assert derive_status([("sql", "refused"), ("writer", "answered")]) == "refused"
+    assert derive_status([("sql", "refused"), ("policy", "answered")]) == "partial"
+    assert derive_status([("sql", "error"), ("policy", "answered")]) == "failed"
+    assert derive_status([("sql", "needs_review"), ("policy", "answered")]) == "escalated"
+    assert derive_status([("sql", "answered"), ("draft", "awaiting_approval")]) == "awaiting_approval"
 
 
 def test_ids_unique():
@@ -77,4 +63,4 @@ def test_task(t):
             assert p["expect"] == "awaiting_approval"
     assert [p["specialist"] for p in t["parts"]].count("writer") == 1, "exactly one summary per task"
     assert t["parts"][-1]["specialist"] in ("writer", "draft"), "writer/draft come last"
-    assert t["expect"] in TASK_STATUSES and t["expect"] == derive(t["parts"]), f"{t['id']} expect != derived"
+    assert t["expect"] in TASK_STATUSES and t["expect"] == derive_status([(p["specialist"], p["expect"]) for p in t["parts"]]), f"{t['id']} expect != derived"
