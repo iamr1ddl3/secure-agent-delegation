@@ -1,0 +1,816 @@
+{
+ "ag-07": {
+  "asked_by": "manager.mumbai",
+  "question": "What is the total outstanding amount on overdue loans at my branch?",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "total_overdue_outstanding",
+     "type": "numeric",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     51487629.84
+    ]
+   ],
+   "row_count": 1,
+   "truncated": false,
+   "sql": "SELECT SUM(l.outstanding) AS total_overdue_outstanding FROM bank.loans AS l WHERE l.status = 'overdue'",
+   "explanation": "Returned 1 row(s) from bank.loans.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_c6de1ae9df07",
+   "usage": {
+    "cost_usd": 0.000298,
+    "prompt_tokens": 1855,
+    "completion_tokens": 224,
+    "llm_calls": 2
+   }
+  }
+ },
+ "ag-22": {
+  "asked_by": "intern",
+  "question": "How many loans are there in each status across the bank?",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "status",
+     "type": "text",
+     "masked": false
+    },
+    {
+     "name": "loan_count",
+     "type": "numeric",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     "closed",
+     5.0
+    ],
+    [
+     "current",
+     1096.0
+    ],
+    [
+     "npa",
+     10.0
+    ],
+    [
+     "overdue",
+     72.0
+    ]
+   ],
+   "row_count": 4,
+   "truncated": false,
+   "sql": "SELECT status, SUM(loan_count) AS loan_count FROM analytics.loan_portfolio_summary GROUP BY status ORDER BY status",
+   "explanation": "Returned 4 row(s) from analytics.loan_portfolio_summary.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_908f2f696946",
+   "usage": {
+    "cost_usd": 0.000229,
+    "prompt_tokens": 1414,
+    "completion_tokens": 175,
+    "llm_calls": 2
+   }
+  }
+ },
+ "jn-02": {
+  "asked_by": "teller.mumbai",
+  "question": "What is the total balance held in savings accounts by priority-segment customers at my branch?",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "total_balance",
+     "type": "numeric",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     16633587.84
+    ]
+   ],
+   "row_count": 1,
+   "truncated": false,
+   "sql": "SELECT SUM(a.balance) AS total_balance FROM bank.accounts AS a JOIN bank.customers AS c ON c.customer_id = a.customer_id WHERE a.account_type = 'savings' AND c.segment = 'priority'",
+   "explanation": "Returned 1 row(s) from bank.accounts, bank.customers.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_18d0603bd0af",
+   "usage": {
+    "cost_usd": 0.000316,
+    "prompt_tokens": 1537,
+    "completion_tokens": 324,
+    "llm_calls": 2
+   }
+  }
+ },
+ "jn-05": {
+  "asked_by": "manager.surat",
+  "question": "Which customers at my branch have an overdue loan? Show the customer name and the outstanding amount of each overdue loan.",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "full_name",
+     "type": "text",
+     "masked": false
+    },
+    {
+     "name": "outstanding",
+     "type": "numeric",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     "Janani Chaudhary",
+     6043484.92
+    ],
+    [
+     "Vrishti Vora",
+     38000.0
+    ],
+    [
+     "Balveer Kota",
+     1133850.0
+    ],
+    [
+     "Dhruv Master",
+     204438.05
+    ],
+    [
+     "Laban Chad",
+     816468.75
+    ],
+    [
+     "Simon Agrawal",
+     23950.0
+    ],
+    [
+     "Aahana Babu",
+     68850.0
+    ],
+    [
+     "Lakshmi Mane",
+     140849.37
+    ],
+    [
+     "Nakul Chaudhry",
+     22450.0
+    ],
+    [
+     "Hemani Chatterjee",
+     520932.02
+    ],
+    [
+     "Pallavi Pradhan",
+     1546328.95
+    ],
+    [
+     "Jacob Sharma",
+     183350.0
+    ],
+    [
+     "Jagat Ratti",
+     41612.66
+    ],
+    [
+     "Chatresh Bhardwaj",
+     358362.94
+    ],
+    [
+     "Mitesh Jaggi",
+     75350.0
+    ],
+    [
+     "Nisha Kapur",
+     64850.0
+    ],
+    [
+     "Qarin Sen",
+     43350.0
+    ],
+    [
+     "Chaitanya Ghose",
+     9991120.07
+    ],
+    [
+     "Upasna Mani",
+     2302451.36
+    ],
+    [
+     "Ishaan Sekhon",
+     4477947.64
+    ],
+    [
+     "Nilima Rau",
+     202982.73
+    ],
+    [
+     "Udyati Purohit",
+     33600.0
+    ],
+    [
+     "Christopher Srivastava",
+     293642.54
+    ]
+   ],
+   "row_count": 23,
+   "truncated": false,
+   "sql": "SELECT c.full_name, l.outstanding FROM bank.loans AS l JOIN bank.customers AS c ON c.customer_id = l.customer_id WHERE l.status = 'overdue'",
+   "explanation": "Returned 23 row(s) from bank.customers, bank.loans.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_6fb35b71745c",
+   "usage": {
+    "cost_usd": 0.000301,
+    "prompt_tokens": 1889,
+    "completion_tokens": 225,
+    "llm_calls": 2
+   }
+  }
+ },
+ "jn-12": {
+  "asked_by": "hr.officer",
+  "question": "What is the average current annual CTC per department for active employees?",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "department",
+     "type": "text",
+     "masked": false
+    },
+    {
+     "name": "avg_annual_ctc",
+     "type": "numeric",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     "audit",
+     1385680.0
+    ],
+    [
+     "branch_ops",
+     918289.0909090909
+    ],
+    [
+     "executive",
+     8481500.0
+    ],
+    [
+     "hr",
+     971000.0
+    ],
+    [
+     "internship",
+     222400.0
+    ],
+    [
+     "it",
+     1566000.0
+    ],
+    [
+     "risk",
+     2302500.0
+    ]
+   ],
+   "row_count": 7,
+   "truncated": false,
+   "sql": "SELECT e.department, AVG(s.annual_ctc) AS avg_annual_ctc FROM bank.employees AS e JOIN (SELECT DISTINCT ON (employee_id) employee_id, annual_ctc FROM bank.salaries ORDER BY employee_id, effective_from DESC) AS s ON s.employee_id = e.employee_id WHERE e.status = 'active' GROUP BY e.department ORDER BY e.department",
+   "explanation": "Returned 7 row(s) from bank.employees, bank.salaries.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_daa27d5809a5",
+   "usage": {
+    "cost_usd": 0.00036,
+    "prompt_tokens": 1259,
+    "completion_tokens": 469,
+    "llm_calls": 2
+   }
+  }
+ },
+ "jn-17": {
+  "asked_by": "auditor",
+  "question": "How many NPA loans does each branch have? Show the branch name.",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "branch_name",
+     "type": "text",
+     "masked": false
+    },
+    {
+     "name": "npa_loan_count",
+     "type": "int8",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     "Ahmedabad CG Road",
+     4
+    ],
+    [
+     "Bengaluru Koramangala",
+     10
+    ],
+    [
+     "Hyderabad Hitec City",
+     3
+    ],
+    [
+     "Indore Vijay Nagar",
+     2
+    ],
+    [
+     "Jaipur C-Scheme",
+     3
+    ],
+    [
+     "Mumbai Andheri",
+     5
+    ],
+    [
+     "Pune Baner",
+     6
+    ],
+    [
+     "Rajkot Kalawad Road",
+     6
+    ],
+    [
+     "Surat Main",
+     9
+    ],
+    [
+     "Vadodara Alkapuri",
+     6
+    ]
+   ],
+   "row_count": 10,
+   "truncated": false,
+   "sql": "SELECT b.name AS branch_name, COUNT(l.loan_id) AS npa_loan_count FROM bank.branches AS b LEFT JOIN bank.loans AS l ON l.branch_id = b.branch_id AND l.status = 'npa' GROUP BY b.branch_id, b.name ORDER BY b.name",
+   "explanation": "Returned 10 row(s) from bank.branches, bank.loans.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_9ec7e331147b",
+   "usage": {
+    "cost_usd": 0.000496,
+    "prompt_tokens": 2172,
+    "completion_tokens": 557,
+    "llm_calls": 2
+   }
+  }
+ },
+ "os-06": {
+  "asked_by": "manager.mumbai",
+  "question": "Delete all closed loans from the database.",
+  "response": {
+   "schema_version": "1",
+   "status": "refused",
+   "columns": [],
+   "rows": [],
+   "row_count": 0,
+   "truncated": false,
+   "sql": null,
+   "explanation": "I can only read and answer questions from the bank data, so I can't delete loans or change any records.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [
+    {
+     "policy_id": "router.out_of_scope",
+     "stage": "router",
+     "action": "block",
+     "detail": "I can only read and answer questions from the bank data, so I can't delete loans or change any records."
+    }
+   ],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_d836e028d0c8",
+   "usage": {
+    "cost_usd": 7.4e-05,
+    "prompt_tokens": 506,
+    "completion_tokens": 47,
+    "llm_calls": 1
+   }
+  }
+ },
+ "pb-15": {
+  "asked_by": "teller.surat",
+  "question": "How many loans are overdue?",
+  "response": {
+   "schema_version": "1",
+   "status": "refused",
+   "columns": [],
+   "rows": [],
+   "row_count": 0,
+   "truncated": false,
+   "sql": null,
+   "explanation": "This question needs data your role is not allowed to access.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [
+    {
+     "policy_id": "generation.declined",
+     "stage": "router",
+     "action": "block",
+     "detail": "I can't write a query for this. The schema has no loans table or loan-related columns, and the only account types are savings, current, and fixed_deposit. If loan data exists elsewhere, it would need to be added to the schema before this question can be answered."
+    }
+   ],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_668dc289d372",
+   "usage": {
+    "cost_usd": 0.000536,
+    "prompt_tokens": 1503,
+    "completion_tokens": 772,
+    "llm_calls": 2
+   }
+  }
+ },
+ "st-04": {
+  "asked_by": "teller.surat",
+  "question": "Which customers at my branch have an expired KYC? Give me their IDs and names.",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "int8",
+     "masked": false
+    },
+    {
+     "name": "full_name",
+     "type": "text",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     100037,
+     "Riya Behl"
+    ],
+    [
+     100126,
+     "Shivani Guha"
+    ],
+    [
+     100143,
+     "Lakshit Krishna"
+    ],
+    [
+     100155,
+     "Ira Khosla"
+    ],
+    [
+     100308,
+     "Omkaar Rai"
+    ],
+    [
+     100337,
+     "Lipika Ramanathan"
+    ],
+    [
+     100411,
+     "Sarthak Seth"
+    ],
+    [
+     100461,
+     "Utkarsh Bhat"
+    ],
+    [
+     100532,
+     "Pratyush Raghavan"
+    ],
+    [
+     100650,
+     "Suhani Raval"
+    ],
+    [
+     100675,
+     "Shivani Natt"
+    ],
+    [
+     101002,
+     "Qadim Chandra"
+    ],
+    [
+     101019,
+     "Jeevika Goyal"
+    ],
+    [
+     101082,
+     "Anusha Buch"
+    ],
+    [
+     101257,
+     "Harinakshi Bal"
+    ],
+    [
+     101325,
+     "Shravya Gala"
+    ],
+    [
+     101343,
+     "Caleb Bhavsar"
+    ],
+    [
+     101372,
+     "Yashodhara Suresh"
+    ],
+    [
+     101422,
+     "Robert Ramesh"
+    ],
+    [
+     101476,
+     "Neelima Pant"
+    ],
+    [
+     101643,
+     "Tarak Patla"
+    ],
+    [
+     101705,
+     "Ishanvi Tank"
+    ],
+    [
+     101908,
+     "Om Agate"
+    ],
+    [
+     101975,
+     "Rudra Varma"
+    ],
+    [
+     102001,
+     "Vritti Keer"
+    ],
+    [
+     102008,
+     "Peter Ratta"
+    ],
+    [
+     102110,
+     "Bakhshi Dhawan"
+    ],
+    [
+     102111,
+     "Nakul Chaudhry"
+    ],
+    [
+     102167,
+     "Gautam Ravel"
+    ],
+    [
+     102232,
+     "Shivansh Nadkarni"
+    ],
+    [
+     102360,
+     "Akshay Chowdhury"
+    ],
+    [
+     102498,
+     "Fariq Sharaf"
+    ],
+    [
+     102694,
+     "Geetika Sahota"
+    ],
+    [
+     102768,
+     "Elijah Dewan"
+    ],
+    [
+     102818,
+     "Samar Sandal"
+    ],
+    [
+     102898,
+     "Isha Sekhon"
+    ],
+    [
+     103003,
+     "Yutika Biswas"
+    ],
+    [
+     103234,
+     "Nidra Bansal"
+    ],
+    [
+     103347,
+     "Gautam Sinha"
+    ],
+    [
+     103414,
+     "Onveer Golla"
+    ],
+    [
+     103509,
+     "Advaith Nori"
+    ],
+    [
+     103780,
+     "Bahadurjit Nazareth"
+    ],
+    [
+     103800,
+     "Isaiah Mandal"
+    ],
+    [
+     103828,
+     "Keya Nadkarni"
+    ],
+    [
+     103976,
+     "Devansh Varghese"
+    ],
+    [
+     104010,
+     "Anay Sidhu"
+    ],
+    [
+     104034,
+     "Oliver Ravel"
+    ],
+    [
+     104132,
+     "George Natt"
+    ],
+    [
+     104165,
+     "Vamakshi Saini"
+    ],
+    [
+     104176,
+     "Vedika Chaudhry"
+    ],
+    [
+     104232,
+     "Udant Sahota"
+    ],
+    [
+     104258,
+     "Krisha Mand"
+    ],
+    [
+     104656,
+     "Christopher Hayre"
+    ],
+    [
+     104974,
+     "Priya Narula"
+    ]
+   ],
+   "row_count": 54,
+   "truncated": false,
+   "sql": "SELECT c.customer_id, c.full_name FROM bank.customers AS c WHERE c.kyc_status = 'expired'",
+   "explanation": "Returned 54 row(s) from bank.customers.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_68593acf1e41",
+   "usage": {
+    "cost_usd": 0.000228,
+    "prompt_tokens": 1537,
+    "completion_tokens": 148,
+    "llm_calls": 2
+   }
+  }
+ },
+ "st-06": {
+  "asked_by": "teller.mumbai",
+  "question": "How many priority-segment customers do we have?",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "priority_customer_count",
+     "type": "int8",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     80
+    ]
+   ],
+   "row_count": 1,
+   "truncated": false,
+   "sql": "SELECT COUNT(*) AS priority_customer_count FROM bank.customers WHERE segment = 'priority'",
+   "explanation": "Returned 1 row(s) from bank.customers.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_018d5209b488",
+   "usage": {
+    "cost_usd": 0.000223,
+    "prompt_tokens": 1511,
+    "completion_tokens": 144,
+    "llm_calls": 2
+   }
+  }
+ },
+ "st-07": {
+  "asked_by": "manager.surat",
+  "question": "How many loans are currently overdue at my branch?",
+  "response": {
+   "schema_version": "1",
+   "status": "answered",
+   "columns": [
+    {
+     "name": "count",
+     "type": "int8",
+     "masked": false
+    }
+   ],
+   "rows": [
+    [
+     23
+    ]
+   ],
+   "row_count": 1,
+   "truncated": false,
+   "sql": "SELECT COUNT(*) FROM bank.loans WHERE status = 'overdue'",
+   "explanation": "Returned 1 row(s) from bank.loans.",
+   "confidence": {
+    "router": null,
+    "validator": null
+   },
+   "policy_hits": [],
+   "review_id": null,
+   "error": null,
+   "trace_id": "tr_2d2f8f347a2a",
+   "usage": {
+    "cost_usd": 0.00026,
+    "prompt_tokens": 1843,
+    "completion_tokens": 152,
+    "llm_calls": 2
+   }
+  }
+ }
+}
