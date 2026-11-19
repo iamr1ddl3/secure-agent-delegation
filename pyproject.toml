@@ -3,10 +3,10 @@ name = "secure-agent-delegation"
 version = "0.0.1"
 description = "Supervisor agent that delegates to the Secure SQL Agent over MCP; the user's access survives delegation."
 requires-python = ">=3.11"
-dependencies = ["pydantic>=2.8", "jsonschema>=4.23", "mcp>=2.3,<3"]  # more land with the code that imports them
+dependencies = ["pydantic>=2.8", "jsonschema>=4.23", "mcp>=2.3,<3", "pyyaml>=6", "psycopg[binary]>=3.2", "fastembed>=0.5"]  # more land with the code that imports them
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "pyyaml>=6", "ruff>=0.6"]
+dev = ["pytest>=8", "ruff>=0.6"]
 
 [build-system]
 requires = ["hatchling"]
