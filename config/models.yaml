@@ -2,6 +2,7 @@
 # Prices USD per 1M tokens (in / out), from https://openrouter.ai/api/v1/models on 2026-11-19.
 roles:
   policy: anthropic/claude-haiku-5.5      # 0.10 / 0.50; challengers compared in tracker task 75
+  writer: anthropic/claude-haiku-5.5      # 0.10 / 0.50
 challengers:
   - deepseek/deepseek-v4-flash            # 0.09 / 0.18
   - qwen/qwen3.7-flash                    # 0.03 / 0.13
